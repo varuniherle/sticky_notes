@@ -1,10 +1,31 @@
-.App {
+/* .App {
   padding: 20px;
   font-family: 'Courier New';
-  background-color: #4b1d1d29;
+  background-color: #f0f0f0;
   min-height: 100vh;
   overflow: hidden;
-  color: rgb(7, 1, 1)
+} */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  overflow: hidden; /* Prevent whole-page scroll */
+  font-family: 'Courier New';
+  background-color: #f0f0f0;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.main-content {
+  flex: 1;
+  overflow-y: auto;
+  margin-top: 5%; /* Adjust based on navbar height */
+  padding: 20px;
+  scroll-behavior: smooth;
 }
 
 .header {
@@ -37,28 +58,25 @@
   border: 2px solid #ddd;
 }
 
-/* Remove absolute positioning and z-index from notes container */
+
 .notes-container {
   position: relative;
   height: 100%;
 }
 
-/* Remove draggable-wrapper styles completely */
-.draggable-wrapper {
-  /* no positioning or z-index needed */
-}
+
+
 
 .note {
   padding: 15px;
-  width: 220px;
+  width: 250px;
   height: 200px;
   border-radius: 15px;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   position: relative;
   display: flex;
   flex-direction: column;
-  color: white;
-  
+
   /* background color will be set inline by React based on priority */
 }
 
@@ -93,27 +111,7 @@
   opacity: 1;
 }
 
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000; /* Very top */
-}
 
-.modal-content {
-  background-color: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  width: 300px;
-  max-width: 80%;
-}
 
 /* Grid layout for notes when not dragging */
 .notes-grid {
@@ -123,10 +121,8 @@
   gap: 20px;
   padding: 10px;
 }
-.sticky-header {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  padding: 1rem;
+@media (max-width: 576px) {
+  .main-content {
+    padding-top: 100px; /* More space if mobile navbar is taller */
+  }
 }
-

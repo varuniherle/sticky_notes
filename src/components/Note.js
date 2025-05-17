@@ -4,13 +4,13 @@ import Draggable from 'react-draggable';
 const getPriorityColor = (priority) => {
   switch (priority) {
     case 1:
-      return 'rgba(255, 77, 77, 0.2)'; // red with opacity
+      return 'rgba(255, 77, 77, 0.24)'; 
     case 2:
-      return 'rgba(255, 235, 59, 0.2)'; // yellow with opacity
+      return 'rgba(255, 235, 59, 0.24)'; 
     case 3:
-      return 'rgba(76, 175, 80, 0.2)'; // green with opacity
+      return 'rgba(76, 175, 79, 0.24)'; 
     default:
-      return 'rgba(128, 128, 128, 0.2)'; // grey with opacity
+      return 'rgba(128, 128, 128, 0.24)'; 
   }
 };
 
@@ -37,7 +37,7 @@ const Note = forwardRef(({ id, content, onUpdate, onDelete, style, priority }, r
           className="note-content"
           autoFocus
         />
-        <button className="delete-button" onClick={() => onDelete(id)}>×</button>
+        <button className="delete-button" onClick={() => onDelete(id)}>× </button>
       </div>
     </Draggable>
   );

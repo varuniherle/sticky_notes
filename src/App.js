@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Note from './components/Note';
 import initialNotes from './data/initialNotes';
 import './App.css';
-import { Modal, Button, Form, Row, Col } from 'react-bootstrap';
+import { Modal, Button, Form, Row, Col, Navbar, Container } from 'react-bootstrap';
 
 function MyVerticallyCenteredModal({ show, onHide, onAddNote }) {
   const [content, setContent] = useState('');
@@ -107,49 +107,55 @@ function App() {
 
   const filteredNotes = searchTerm
     ? notes.filter((note) =>
-        note.content.toLowerCase().includes(searchTerm.toLowerCase())
-      )
+      note.content.toLowerCase().includes(searchTerm.toLowerCase())
+    )
     : notes;
 
   return (
-    <div className="App py-4">
-      <Row className="align-items-center mb-3 sticky-header">
-        <Col>
-          <h1 className="mb-0">Sticky Notes</h1>
-        </Col>
-        <Col xs="auto">
-          <Button variant="primary" onClick={() => setModalShow(true)} className="me-2">
-            Add Note
-          </Button>
-          <Button
-            variant="secondary"
-            onClick={() => setGroupByPriority(!groupByPriority)}
-          >
-            {groupByPriority ? 'Display as Grid' : 'Display by Priority'}
-          </Button>
-        </Col>
-      </Row>
+    <div >
+      {/* Navbar */}
+      <Navbar className=" py-3" fixed="top" bg='dark'>
+        <Container fluid>
+          <Row className="w-100 align-items-center">
+          
+            <Col xs={12} md={6} className="mb-2 mb-md-0">
+              <Form.Control
+                ref={searchInputRef}
+                type="text"
+                placeholder="Search notes..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </Col>
+            <Col xs={12} md="auto" className="d-flex justify-content-lg-end gap-2">
+              <Button variant="primary" onClick={() => setModalShow(true)}>
+                Add Note
+              </Button>
+              <Button
+                variant="secondary"
+                onClick={() => setGroupByPriority(!groupByPriority)}
+              >
+                {groupByPriority ? 'Display as Grid' : 'Display by Priority'}
+              </Button>
+            </Col>
+          </Row>
+        </Container>
+      </Navbar>
+      {/* <Col xs={12} md="auto" className="mb-2 mb-md-0">
+             <Navbar.Brand><h1>Sticky notes</h1></Navbar.Brand>
+            </Col> */}
+<div className="main-content App">
+            <h1>Sticky notes</h1>
 
       <MyVerticallyCenteredModal
         show={modalShow}
         onHide={() => setModalShow(false)}
         onAddNote={addNote}
       />
-
-      <Row className="mb-4">
-        <Col>
-          <Form.Control
-            ref={searchInputRef}
-            type="text"
-            placeholder="Search notes..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </Col>
-      </Row>
-
+      {/* to display the notes based on user choice either by grid or priority*/}
       {!groupByPriority ? (
         <div className="notes-grid">
+          {/* grid view */}
           {filteredNotes.map((note) => (
             <Note
               key={note.id}
@@ -173,16 +179,17 @@ function App() {
               priority === 1
                 ? 'Priority 1 (High)'
                 : priority === 2
-                ? 'Priority 2 (Medium)'
-                : priority === 3
-                ? 'Priority 3 (Low)'
-                : 'Random';
+                  ? 'Priority 2 (Medium)'
+                  : priority === 3
+                    ? 'Priority 3 (Low)'
+                    : 'Random';
 
             return (
               <div key={priority} className="priority-section mb-4">
                 <h2>{priorityLabel}</h2>
                 <div className="notes-grid">
                   {notesForPriority.map((note) => (
+                    // for priority view
                     <Note
                       key={note.id}
                       id={note.id}
@@ -198,6 +205,7 @@ function App() {
           })}
         </div>
       )}
+      </div>
     </div>
   );
 }
