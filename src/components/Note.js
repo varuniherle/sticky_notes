@@ -1,4 +1,5 @@
-import React, { useState, forwardRef } from 'react';
+import React, { useState, forwardRef, useRef } from 'react';
+import Draggable from 'react-draggable';
 
 const getPriorityColor = (priority) => {
   switch (priority) {
@@ -27,12 +28,13 @@ const Note = forwardRef(({ id, content, onUpdate, onDelete, style, priority }, r
       onUpdate(id, e.target.value);
     }
   };
+  const nodeRef = useRef(null);
 
   return (
-    
+    <Draggable nodeRef={nodeRef}>
     <div
       className="note"
-      ref={ref}
+      ref={nodeRef}
       style={{ ...style, backgroundColor: getPriorityColor(priority) }}
     >
       <textarea
@@ -43,6 +45,7 @@ const Note = forwardRef(({ id, content, onUpdate, onDelete, style, priority }, r
       />
       <button className="delete-button" onClick={() => onDelete(id)}>×</button>
     </div>
+    </Draggable>
   );
 });
 
