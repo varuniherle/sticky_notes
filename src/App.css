@@ -23,7 +23,7 @@ html, body, #root {
 .main-content {
   flex: 1;
   overflow-y: auto;
-  margin-top: 8%; /* Adjust based on navbar height */
+  margin-top: 6%; /* Adjust based on navbar height */
   padding: 20px;
   scroll-behavior: smooth;
 }
