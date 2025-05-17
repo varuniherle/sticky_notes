@@ -1,131 +1,121 @@
 .App {
   padding: 20px;
-  min-height: 100vh;
+  font-family: sans-serif;
   background-color: #f0f0f0;
+  min-height: 100vh;
+  overflow: hidden;
 }
 
 .header {
   margin-bottom: 20px;
-  padding: 0 20px;
 }
 
 .header-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
-}
-
-.search-container {
-  width: 100%;
-}
-
-.search-input {
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.search-input {
-  padding: 8px 12px;
-  font-size: 16px;
-  border: 2px solid #ddd;
-  border-radius: 5px;
-  transition: border-color 0.3s;
-}
-
-.search-input:focus {
-  outline: none;
-  border-color: #4CAF50;
-}
-
-.header h1 {
-  color: #333;
-  margin: 0;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .add-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
+  padding: 10px 18px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s;
 }
 
-.add-button:hover {
-  background-color: #45a049;
+.search-input {
+  width: 100%;
+  margin-top: 10px;
+  padding: 8px 12px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 2px solid #ddd;
 }
 
-.notes-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 20px;
-  padding: 20px;
+/* Remove absolute positioning and z-index from notes container */
+.notes-container {
+  position: relative;
+  height: 100%;
+}
+
+/* Remove draggable-wrapper styles completely */
+.draggable-wrapper {
+  /* no positioning or z-index needed */
 }
 
 .note {
-  background-color: #ffd700;
-  padding: 20px;
+  padding: 15px;
+  width: 220px;
+  height: 200px;
   border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  transition: all 0.3s ease;
-  width: 200px;
-}
-
-.note textarea {
-  width: 100%;
-  height: 100%;
-  min-height: 120px;
-  border: none;
-  background-color: transparent;
-  resize: none;
-  font-size: 16px;
-  font-family: inherit;
-  padding: 0;
-}
-
-.note textarea:focus {
-  outline: none;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  /* background color will be set inline by React based on priority */
 }
 
 .note-content {
+  border: none;
+  background: transparent;
+  resize: none;
+  width: 100%;
+  height: 100%;
   font-size: 16px;
-  white-space: pre-wrap;
-  word-break: break-word;
+  font-family: inherit;
+}
+
+.note-content:focus {
+  outline: none;
 }
 
 .delete-button {
   position: absolute;
   top: 5px;
-  right: 5px;
+  right: 8px;
   background: none;
   border: none;
   font-size: 20px;
-  color: #ff4444;
+  color: #d00;
   cursor: pointer;
   opacity: 0;
-  transition: opacity 0.2s;
+  transition: opacity 0.3s;
 }
 
 .note:hover .delete-button {
   opacity: 1;
 }
 
-.delete-button:hover {
-  color: #ff0000;
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Very top */
 }
 
-@media (max-width: 600px) {
-  .notes-grid {
-    grid-template-columns: 1fr;
-    padding: 10px;
-  }
-  
-  .header {
-    flex-direction: column;
-    gap: 10px;
-    text-align: center;
-  }
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 300px;
+  max-width: 80%;
+}
+
+/* Grid layout for notes when not dragging */
+.notes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 10px;
 }
