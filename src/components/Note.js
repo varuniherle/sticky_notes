@@ -16,35 +16,29 @@ const getPriorityColor = (priority) => {
 
 const Note = forwardRef(({ id, content, onUpdate, onDelete, style, priority }, ref) => {
   const [value, setValue] = useState(content);
-  const [isFirstClick, setIsFirstClick] = useState(true);
-
-  const handleChange = (e) => {
-    if (isFirstClick) {
-      setValue('');
-      setIsFirstClick(false);
-      onUpdate(id, e.target.value);
-    } else {
-      setValue(e.target.value);
-      onUpdate(id, e.target.value);
-    }
-  };
   const nodeRef = useRef(null);
 
+  const handleChange = (e) => {
+    const newValue = e.target.value;
+    setValue(newValue);
+    onUpdate(id, newValue);
+  };
+
   return (
-    <Draggable nodeRef={nodeRef}>
-    <div
-      className="note"
-      ref={nodeRef}
-      style={{ ...style, backgroundColor: getPriorityColor(priority) }}
-    >
-      <textarea
-        value={value}
-        onChange={handleChange}
-        className="note-content"
-        autoFocus
-      />
-      <button className="delete-button" onClick={() => onDelete(id)}>×</button>
-    </div>
+    <Draggable nodeRef={nodeRef} >
+      <div
+        className="note"
+        ref={nodeRef}
+        style={{ ...style, backgroundColor: getPriorityColor(priority) }}
+      >
+        <textarea
+          value={value}
+          onChange={handleChange}
+          className="note-content"
+          autoFocus
+        />
+        <button className="delete-button" onClick={() => onDelete(id)}>×</button>
+      </div>
     </Draggable>
   );
 });

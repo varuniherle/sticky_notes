@@ -113,7 +113,7 @@ function App() {
 
   return (
     <div className="App py-4">
-      <Row className="align-items-center mb-3">
+      <Row className="align-items-center mb-3 sticky-header">
         <Col>
           <h1 className="mb-0">Sticky Notes</h1>
         </Col>
