@@ -4,13 +4,13 @@ import Draggable from 'react-draggable';
 const getPriorityColor = (priority) => {
   switch (priority) {
     case 1:
-      return '#ff4d4d'; // red
+      return 'rgba(255, 77, 77, 0.2)'; // red with opacity
     case 2:
-      return '#ffeb3b'; // yellow
+      return 'rgba(255, 235, 59, 0.2)'; // yellow with opacity
     case 3:
-      return '#4caf50'; // green
+      return 'rgba(76, 175, 80, 0.2)'; // green with opacity
     default:
-      return '#808080'; // grey
+      return 'rgba(128, 128, 128, 0.2)'; // grey with opacity
   }
 };
 
