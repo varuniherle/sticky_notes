@@ -1,9 +1,10 @@
 .App {
   padding: 20px;
-  font-family: sans-serif;
-  background-color: #f0f0f0;
+  font-family: 'Courier New';
+  background-color: #4b1d1d29;
   min-height: 100vh;
   overflow: hidden;
+  color: rgb(7, 1, 1)
 }
 
 .header {
@@ -56,6 +57,8 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  color: white;
+  
   /* background color will be set inline by React based on priority */
 }
 
@@ -115,6 +118,7 @@
 /* Grid layout for notes when not dragging */
 .notes-grid {
   display: grid;
+  position: relative;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 20px;
   padding: 10px;
