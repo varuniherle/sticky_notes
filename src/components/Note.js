@@ -1,20 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import Draggable from 'react-draggable';
 
-const Note = ({ id, content, onUpdate, onDelete }) => {
-  const [isEditing, setIsEditing] = useState(false);
+const Note = ({ id, content, position, onUpdate, onDelete }) => {
   const [noteContent, setNoteContent] = useState(content);
+  const [isFirstClick, setIsFirstClick] = useState(true);
+  const nodeRef = useRef(null);
 
-  const handleDoubleClick = () => {
-    setIsEditing(true);
-  };
+  useEffect(() => {
+    setNoteContent(content);
+  }, [content]);
 
-  const handleBlur = () => {
-    setIsEditing(false);
-    onUpdate(id, noteContent);
+  const handleClick = () => {
+    if (isFirstClick && content === 'New Note') {
+      setNoteContent('');
+      onUpdate(id, '');
+      setIsFirstClick(false);
+    }
   };
 
   const handleChange = (e) => {
     setNoteContent(e.target.value);
+    onUpdate(id, e.target.value);
   };
 
   const handleDelete = () => {
@@ -22,23 +28,19 @@ const Note = ({ id, content, onUpdate, onDelete }) => {
   };
 
   return (
-    <div className="note" onDoubleClick={handleDoubleClick}>
-      {isEditing ? (
+    <Draggable nodeRef={nodeRef} defaultPosition={position} onStop={(e, data) => onUpdate(id, noteContent, { x: data.x, y: data.y })}>
+      <div ref={nodeRef} className="note">
         <textarea
           value={noteContent}
           onChange={handleChange}
-          onBlur={handleBlur}
-          autoFocus
-        />
-      ) : (
-        <>
-          <div className="note-content">{noteContent}</div>
-          <button className="delete-button" onClick={handleDelete}>
-            ×
-          </button>
-        </>
-      )}
-    </div>
+          onClick={handleClick}
+          className="note-content"
+        ></textarea>
+        <button className="delete-button" onClick={handleDelete}>
+          ×
+        </button>
+      </div>
+    </Draggable>
   );
 };
 
